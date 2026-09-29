@@ -9,6 +9,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Unzip project
         run: unzip -o -q project.zip
+      - name: Fix pip line
+        run: |
+          sed -i 's/install("--no-deps", "UnityPy")/options("--no-deps")\n            install("UnityPy")/' UnityMeshExtractor/app/build.gradle.kts
+          sed -n 36,50p UnityMeshExtractor/app/build.gradle.kts
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
